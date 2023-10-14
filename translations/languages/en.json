@@ -1,0 +1,22 @@
+{
+  "register": "Register",
+  "subtitleRegister": "We connect IT professionals",
+  "company": "Company",
+  "candidate": "Candidate",
+  "name": "Name",
+  "email": "Email",
+  "password": "Password",
+  "language": "Language",
+  "hardSkills": "Hard skills",
+  "personality": "Personality",
+  "login": "Login",
+  "forgotPassword": "Forgot password?",
+  "dontHaveAccount": "Don't have an account?",
+  "haveAccount": "Already have an account?",
+  "createAccount": "Create account",
+  "loginAccount": "Log in",
+  "size": "Company Size",
+  "location": "Location",
+  "sector": "Sector",
+  "send": "Enviar"
+}

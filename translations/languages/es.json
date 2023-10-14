@@ -1,0 +1,22 @@
+{
+  "register": "Registro",
+  "subtitleRegister": "Conectamos profesionales de TI",
+  "company": "Empresa",
+  "candidate": "Aspirante",
+  "name": "Nombre",
+  "email": "Correo",
+  "password": "Contraseña",
+  "language": "Idioma",
+  "hardSkills": "Habilidades",
+  "personality": "Personalidad",
+  "login": "Iniciar sesión",
+  "forgotPassword": "¿Olvidaste tu contraseña?",
+  "dontHaveAccount": "¿No tienes una cuenta aún?",
+  "haveAccount": "¿Ya tienes una cuenta?",
+  "createAccount": "Regístrate",
+  "loginAccount": "Inicia sesión",
+  "size": "Tamaño",
+  "location": "Ubicación",
+  "sector": "Sector",
+  "send": "Enviar"
+}
