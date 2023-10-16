@@ -8,13 +8,13 @@ jobs:
     name: Install and publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 16.x
       - uses: expo/expo-github-action@v5
         with:
-          expo-version: 6.x
+          expo-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
           expo-cache: true
       - run: yarn
