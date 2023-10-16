@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import i18n from "../../translations/i18n";
+import styles from '../styles';
+
 const CompanyRegister = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -22,62 +24,78 @@ const CompanyRegister = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.label}>{i18n.t('name')}:</Text>
-            <TextInput
-                style={styles.input}
-                onChangeText={(text) => setName(text)}
-                value={name}
-            />
+            <View style={styles.formGroup}>
+                <Text style={styles.label}>{i18n.t('name')}:</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => setName(text)}
+                    value={name}
+                />
+            </View>
 
-            <Text style={styles.label}>{i18n.t('password')}:</Text>
-            <TextInput
-                style={styles.input}
-                onChangeText={(text) => setPassword(text)}
-                value={password}
-                secureTextEntry
-            />
+            <View style={styles.formGroup}>
+                <Text style={styles.label}>{i18n.t('email')}:</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => setEmail(text)}
+                    value={email}
+                    keyboardType="email-address"
+                />
+            </View>
 
-            <Text style={styles.label}>{i18n.t('email')}:</Text>
-            <TextInput
-                style={styles.input}
-                onChangeText={(text) => setEmail(text)}
-                value={email}
-                keyboardType="email-address"
-            />
+            <View style={styles.formGroup}>
+                <Text style={styles.label}>{i18n.t('password')}:</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(text) => setPassword(text)}
+                    value={password}
+                    secureTextEntry={true}
+                    autoCapitalize="none"
+                />
+            </View>
 
-            <Text style={styles.label}>{i18n.t('size')}:</Text>
-            <Picker
-                style={styles.input}
-                selectedValue={size}
-                onValueChange={(itemValue) => setSize(itemValue)}
-            >
-                <Picker.Item label="Pequeño" value="small" />
-                <Picker.Item label="Mediano" value="medium" />
-                <Picker.Item label="Grande" value="large" />
-            </Picker>
+            <View style={styles.formGroup}>
+                <Text style={styles.label}>{i18n.t('size')}:</Text>
+                <View style={styles.picker}>
+                    <Picker
+                        selectedValue={size}
+                        onValueChange={(itemValue) => setSize(itemValue)}
+                    >
+                        <Picker.Item label="< 100" value="lessThan100"/>
+                        <Picker.Item label="Entre 100 y 200" value="between100And200"/>
+                        <Picker.Item label="> 200" value="moreThan200"/>
+                    </Picker>
+                </View>
+            </View>
 
-            <Text style={styles.label}>{i18n.t('location')}:</Text>
-            <Picker
-                style={styles.input}
-                selectedValue={location}
-                onValueChange={(itemValue) => setLocation(itemValue)}
-            >
-                <Picker.Item label="Norte" value="north" />
-                <Picker.Item label="Sur" value="south" />
-                <Picker.Item label="Este" value="east" />
-                <Picker.Item label="Oeste" value="west" />
-            </Picker>
+            <View style={styles.formGroup}>
+                <Text style={styles.label}>{i18n.t('location')}:</Text>
+                <View style={styles.picker}>
+                    <Picker
+                        selectedValue={location}
+                        onValueChange={(itemValue) => setLocation(itemValue)}
+                    >
+                        <Picker.Item label="Norte" value="north"/>
+                        <Picker.Item label="Sur" value="south"/>
+                        <Picker.Item label="Este" value="east"/>
+                        <Picker.Item label="Oeste" value="west"/>
+                    </Picker>
+                </View>
+            </View>
 
-            <Text style={styles.label}>{i18n.t('sector')}:</Text>
-            <Picker
-                style={styles.input}
-                selectedValue={sector}
-                onValueChange={(itemValue) => setSector(itemValue)}
-            >
-                <Picker.Item label="Sector A" value="sectorA" />
-                <Picker.Item label="Sector B" value="sectorB" />
-                <Picker.Item label="Sector C" value="sectorC" />
-            </Picker>
+            <View style={styles.formGroup}>
+                <Text style={styles.label}>{i18n.t('sector')}:</Text>
+                <View style={styles.picker}>
+                    <Picker
+                        selectedValue={sector}
+                        onValueChange={(itemValue) => setSector(itemValue)}
+                    >
+                        <Picker.Item label="Sector A" value="sectorA"/>
+                        <Picker.Item label="Sector B" value="sectorB"/>
+                        <Picker.Item label="Sector C" value="sectorC"/>
+                    </Picker>
+                </View>
+            </View>
 
             <TouchableOpacity style={styles.button} onPress={handleFormSubmit}>
                 <Text style={styles.buttonText}>{i18n.t('send')}</Text>
@@ -85,34 +103,5 @@ const CompanyRegister = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: '20px 0px  ',
-    },
-    label: {
-        fontSize: 16,
-        marginBottom: 5,
-    },
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 15,
-        paddingHorizontal: 10,
-    },
-    button: {
-        backgroundColor: 'blue',
-        padding: 10,
-        alignItems: 'center',
-        borderRadius: 5,
-        marginTop: 10,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 18,
-    },
-});
 
 export default CompanyRegister;

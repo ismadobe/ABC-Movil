@@ -34,7 +34,9 @@ const styles = StyleSheet.create({
         width: '100%',
         borderRadius: 6,
         overflow: 'hidden',
-        border: '1px solid #EEF0F3',
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderStyle: 'solid',
     },
     tab: {
         paddingVertical: 10,
