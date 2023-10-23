@@ -34,6 +34,21 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
     },
+    textCenter: {
+        textAlign: 'center'
+    },
+    heading: {
+        fontSize: 30,
+        fontWeight: '700',
+        color: '#2A3342',
+        marginBottom: 16
+    },
+    subheading: {
+        fontSize: 18,
+        fontWeight: '500',
+        color: '#556987',
+        marginBottom: 16
+    },
 });
 
 export default styles;

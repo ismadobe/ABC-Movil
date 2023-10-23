@@ -7,8 +7,10 @@
   "email": "Email",
   "password": "Password",
   "language": "Language",
+  "country": "Country",
   "hardSkills": "Hard skills",
   "personality": "Personality",
+  "website": "Website",
   "login": "Login",
   "forgotPassword": "Forgot password?",
   "dontHaveAccount": "Don't have an account?",
@@ -18,5 +20,10 @@
   "size": "Company Size",
   "location": "Location",
   "sector": "Sector",
-  "send": "Enviar"
+  "send": "Enviar",
+  "selected": "selected",
+  "confirm": "Confirm",
+  "phone": "Phone",
+  "selectOption": "Select an option",
+  "registrationSuccess": "Registration Successful",
 }

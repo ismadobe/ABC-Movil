@@ -1,8 +1,9 @@
 import {View, StyleSheet, Text, TouchableOpacity, ScrollView} from 'react-native';
 import {useState} from "react";
-import CompanyRegister from "./register/company";
-import CandidateRegister from "./register/candidate";
+import CompanyRegister from "./pages/register/company";
+import CandidateRegister from "./pages/register/candidate";
 import i18n from "../translations/i18n";
+import {Link} from "expo-router";
 
 const styles = StyleSheet.create({
     container: {
@@ -57,9 +58,10 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         padding: 20,
+        flex: 1
     },
 });
-export default function Page() {
+export default function Register() {
     const [activeTab, setActiveTab] = useState('tab1');
 
     const handleTabPress = (tabName) => {
@@ -95,9 +97,9 @@ export default function Page() {
                     {activeTab === 'tab2' && <CandidateRegister></CandidateRegister>}
                 </View>
 
-                <Text>
+                <Link href="/login" style={styles.textCenter}>
                     {i18n.t('haveAccount')} <Text style={{color: '#B1CDFB'}}>{i18n.t('loginAccount')}</Text>
-                </Text>
+                </Link>
             </ScrollView>
         </View>
     );
