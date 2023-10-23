@@ -44,7 +44,7 @@ const CandidateRegister = () => {
         if (!isFormValid) { return }
 
         const data = {
-            "username": name,
+            name,
             email,
             password,
             language,
