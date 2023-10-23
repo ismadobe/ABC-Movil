@@ -6,23 +6,23 @@ import React, {useState} from "react";
 import {useValidation} from "react-simple-form-validator";
 
 export default function Login() {
-    const [username, setUsername] = useState('');
+    const [email, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
 
     const { isFieldInError, getErrorsInField, isFormValid } = useValidation({
         fieldsRules: {
-            username: { required: true },
+            email: { required: true },
             password: { required: true },
         },
-        state: { username,  password }
+        state: { email,  password }
     });
 
     const handleFormSubmit = async () => {
         if (!isFormValid) { return }
 
         const data = {
-            username,
+            email,
             password,
         }
 
@@ -36,6 +36,7 @@ export default function Login() {
             });
 
             const user = await response.json();
+            console.log(user)
 
             if (response.status === 200) {
                 router.replace('/private');
@@ -55,11 +56,11 @@ export default function Login() {
 
                 <View style={{paddingLeft: 40, paddingRight: 40}}>
                     <View style={styles.formGroup}>
-                        <Text style={styles.label}>{i18n.t('name')}:</Text>
+                        <Text style={styles.label}>{i18n.t('email')}:</Text>
                         <TextInput
                             style={styles.input}
                             onChangeText={(text) => setUsername(text)}
-                            value={username}
+                            value={email}
                         />
                     </View>
 
