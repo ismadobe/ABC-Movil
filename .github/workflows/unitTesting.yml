@@ -17,4 +17,4 @@ jobs:
     - name: Install dependencies
       run: npm install
     - name: Run tests with Jest
-      run: npm test
+      run: npm run test:coverage
