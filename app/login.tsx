@@ -27,7 +27,7 @@ export default function Login() {
         }
 
         try {
-            const response = await fetch('https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/users/auth', {
+            const response = await fetch('https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/companies/auth', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ export default function Login() {
             });
 
             const user = await response.json();
-            console.log(user)
+            console.log(user, data)
 
             if (response.status === 200) {
                 router.replace('/private');
