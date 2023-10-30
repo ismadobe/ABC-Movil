@@ -49,6 +49,9 @@ const styles = StyleSheet.create({
         color: '#556987',
         marginBottom: 16
     },
+    error: {
+        color: 'red',
+    }
 });
 
 export default styles;

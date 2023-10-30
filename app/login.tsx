@@ -6,28 +6,28 @@ import React, {useState} from "react";
 import {useValidation} from "react-simple-form-validator";
 
 export default function Login() {
-    const [username, setUsername] = useState('');
+    const [email, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
 
     const { isFieldInError, getErrorsInField, isFormValid } = useValidation({
         fieldsRules: {
-            username: { required: true },
+            email: { required: true },
             password: { required: true },
         },
-        state: { username,  password }
+        state: { email,  password }
     });
 
     const handleFormSubmit = async () => {
         if (!isFormValid) { return }
 
         const data = {
-            username,
+            email,
             password,
         }
 
         try {
-            const response = await fetch('https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/users/auth', {
+            const response = await fetch('https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/companies/auth', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -36,6 +36,7 @@ export default function Login() {
             });
 
             const user = await response.json();
+            console.log(user, data)
 
             if (response.status === 200) {
                 router.replace('/private');
@@ -55,11 +56,11 @@ export default function Login() {
 
                 <View style={{paddingLeft: 40, paddingRight: 40}}>
                     <View style={styles.formGroup}>
-                        <Text style={styles.label}>{i18n.t('name')}:</Text>
+                        <Text style={styles.label}>{i18n.t('email')}:</Text>
                         <TextInput
                             style={styles.input}
                             onChangeText={(text) => setUsername(text)}
-                            value={username}
+                            value={email}
                         />
                     </View>
 

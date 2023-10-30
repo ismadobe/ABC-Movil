@@ -30,6 +30,7 @@ const CompanyRegister = () => {
     });
 
     const handleFormSubmit = async () => {
+        console.log('isFormValid', isFormValid);
         if (!isFormValid) { return }
 
         try {
@@ -52,9 +53,10 @@ const CompanyRegister = () => {
             });
 
             const company = await response.json();
-
-            if (response.status === 200) {
+            if (response.status === 201) {
                 setIsVisible(true)
+            } else {
+                console.log('response', response.status, data);
             }
         } catch (error) {
             console.error('Error sending POST request:', error);
