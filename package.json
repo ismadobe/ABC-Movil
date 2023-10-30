@@ -9,6 +9,12 @@
     ],
     "transform": {
       "^.+\\.(js|jsx)$": "babel-jest"
+    },
+    "coverageThreshold": {
+      "global": {
+        "lines": 90,
+        "statements": 90
+      }
     }
   },
   "scripts": {
@@ -16,7 +22,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest",
+    "test:coverage": "NODE_ENV=test jest --coverage"
   },
   "dependencies": {
     "@babel/core": "7.13.15",
