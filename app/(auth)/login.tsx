@@ -4,6 +4,8 @@ import styles from "../styles";
 import {Link, router} from "expo-router";
 import React, {useState} from "react";
 import {useValidation} from "react-simple-form-validator";
+import {DEV_URL} from "../../constants";
+import Store from "../../shared/Store";
 
 export default function Login() {
     const [email, setUsername] = useState('');
@@ -27,7 +29,7 @@ export default function Login() {
         }
 
         try {
-            const response = await fetch('https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/companies/auth', {
+            const response = await fetch(DEV_URL + '/companies/auth', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -39,6 +41,7 @@ export default function Login() {
             console.log(user, data)
 
             if (response.status === 200) {
+                await Store.saveToken('user', JSON.stringify(user))
                 router.replace('/home');
             }
         } catch (error) {

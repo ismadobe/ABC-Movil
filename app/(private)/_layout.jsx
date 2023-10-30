@@ -7,27 +7,30 @@ export default function HomeLayout() {
             <Tabs.Screen
                 name="home"
                 options={{
-                    tabBarLabel: 'Home',
-                    headerTitle: 'Home',
+                    headerShown: false,
+                    tabBarLabel: 'Proyectos',
                     tabBarIcon: ({color, size}) => <FontAwesome5 name="list" size={20} color={color}/>
                 }}
             />
             <Tabs.Screen
                 name="search"
                 options={{
+                    headerShown: false,
                     tabBarLabel: 'Search',
-                    headerTitle: 'Search',
                     tabBarIcon: ({color, size}) => <FontAwesome5 name="search" size={20} color={color}/>
                 }}
             />
             <Tabs.Screen
                 name="profile"
                 options={{
+                    headerShown: false,
                     tabBarLabel: 'Profile',
-                    headerTitle: 'Profile',
-                    tabBarIcon: ({ color, size}) => <FontAwesome5 name="user" size={20} color={color} />
+                    tabBarIcon: ({color, size}) => <FontAwesome5 name="user" size={20} color={color}/>
                 }}
             />
+            <Tabs.Screen name="projects/[id]" options={{ headerShown: false, href: null }} />
+            <Tabs.Screen name="projects/create" options={{ headerShown: false, href: null }} />
+            <Tabs.Screen name="(projects)/[id]" options={{ headerShown: false, href: null }} />
         </Tabs>
     );
 }

@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
     },
     privateContainer: {
         flex: 1,
-        margin: 20,
+        marginTop: 40,
+        paddingHorizontal: 20,
     },
     formGroup: {
         marginBottom: 15
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,      // Set the border width
     },
     button: {
-        backgroundColor: 'blue',
+        backgroundColor: '#3B82F6',
         padding: 10,
         alignItems: 'center',
         borderRadius: 5,
@@ -45,6 +46,13 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '700',
         color: '#2A3342',
+        marginBottom: 16
+    },
+    headingAlternative: {
+        fontSize: 20,
+        fontWeight: '700',
+        color: '#2A3342',
+        marginTop: 0,
         marginBottom: 16
     },
     subheading: {
