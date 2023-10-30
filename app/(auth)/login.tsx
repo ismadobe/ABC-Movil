@@ -1,6 +1,6 @@
 import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import i18n from "../translations/i18n";
-import styles from "./styles";
+import i18n from "../../translations/i18n";
+import styles from "../styles";
 import {Link, router} from "expo-router";
 import React, {useState} from "react";
 import {useValidation} from "react-simple-form-validator";
@@ -39,7 +39,7 @@ export default function Login() {
             console.log(user, data)
 
             if (response.status === 200) {
-                router.replace('/private');
+                router.replace('/home');
             }
         } catch (error) {
             console.error('Error sending POST request:', error);
@@ -47,7 +47,6 @@ export default function Login() {
     };
 
     return (
-
         <View style={[styles.container]}>
             <ScrollView contentContainerStyle={{width: '100%'}}>
                 <View style={{marginBottom: 48,  paddingTop: 80}}>
