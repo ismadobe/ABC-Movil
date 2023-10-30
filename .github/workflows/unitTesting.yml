@@ -4,7 +4,6 @@ on:
   push:
     branches: 
       - develop
-      - feature/tests
   pull_request:
     branches:
       - develop
