@@ -1,8 +1,8 @@
 import {View, StyleSheet, Text, TouchableOpacity, ScrollView} from 'react-native';
 import {useState} from "react";
-import CompanyRegister from "./pages/register/company";
-import CandidateRegister from "./pages/register/candidate";
-import i18n from "../translations/i18n";
+import CompanyRegister from "./components/company";
+import CandidateRegister from "./components/candidate";
+import i18n from "../../translations/i18n";
 import {Link} from "expo-router";
 
 const styles = StyleSheet.create({
@@ -97,7 +97,7 @@ export default function Register() {
                     {activeTab === 'tab2' && <CandidateRegister></CandidateRegister>}
                 </View>
 
-                <Link href="/login" style={styles.textCenter}>
+                <Link href="/(auth)/login" style={styles.textCenter}>
                     {i18n.t('haveAccount')} <Text style={{color: '#B1CDFB'}}>{i18n.t('loginAccount')}</Text>
                 </Link>
             </ScrollView>

@@ -5,6 +5,10 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: '20px 0px',
     },
+    privateContainer: {
+        flex: 1,
+        margin: 20,
+    },
     formGroup: {
         marginBottom: 15
     },
