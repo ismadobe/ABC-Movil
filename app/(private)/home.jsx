@@ -46,7 +46,7 @@ const HomePage = () => {
         try {
             let user = await Store.getToken('user');
             user = JSON.parse(user);
-            const response = await fetch(`${DEV_URL}/projects/companies/` + user.id);
+            const response = await fetch(`${DEV_URL}/projects/companies/48`);
             const result = await response.json();
             setData(result.projects);
             setLoading(false);

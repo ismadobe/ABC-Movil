@@ -66,7 +66,7 @@ const ProjectPage = () => {
 
     const getProjects = useCallback(async () => {
         try {
-            const response = await fetch(`https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/projects/companies/2`, {
+            const response = await fetch(`https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/projects/companies/48`, {
                 method: 'GET'
             });
 
