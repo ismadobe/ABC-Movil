@@ -25,5 +25,7 @@
   "confirm": "Confirmar",
   "phone": "Teléfono",
   "selectOption": "Selecciona una opción",
-  "registrationSuccess": "Registro exitoso"
+  "registrationSuccess": "Registro exitoso",
+  "search": "Buscar",
+  "selectCandidate": "Seleccionar candidato",
 }

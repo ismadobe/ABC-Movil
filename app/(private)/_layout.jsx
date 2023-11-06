@@ -30,7 +30,7 @@ export default function HomeLayout() {
             />
             <Tabs.Screen name="projects/[id]" options={{ headerShown: false, href: null }} />
             <Tabs.Screen name="projects/create" options={{ headerShown: false, href: null }} />
-            <Tabs.Screen name="(projects)/[id]" options={{ headerShown: false, href: null }} />
+            <Tabs.Screen name="users/[id]" options={{ headerShown: false, href: null }} />
         </Tabs>
     );
 }

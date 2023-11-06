@@ -10,11 +10,12 @@ import {
 } from "react-native";
 import styles from "../styles";
 import {DEV_URL} from "../../constants";
-import {useEffect, useState, useCallback} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import {Link, router} from "expo-router";
 import {useNavigation} from "@react-navigation/native";
 import ProjectPage from "./projects/[id]";
 import Store from "../../shared/Store";
+import i18n from "../../translations/i18n";
 
 const projectStyles = StyleSheet.create({
     projectButton: {
@@ -69,8 +70,6 @@ const HomePage = () => {
                 flexDirection: 'row',
             }}>
                 <Text style={[styles.headingAlternative, {marginBottom: 0}]}>Proyectos</Text>
-                {/*<Pressable style={[projectStyles.projectButton, projectStyles.createProject]}>*/}
-                {/*    <Text style={{ fontSize: 12, color: '#FFF'}}>Crear proyecto</Text>*/}
                 {/*</Pressable>*/}
             </View>
             <FlatList

@@ -27,17 +27,20 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderColor: 'gray',
         borderWidth: 1,      // Set the border width
+        padding: 0,
+        height: "auto",
     },
     button: {
         backgroundColor: '#3B82F6',
         padding: 10,
         alignItems: 'center',
         borderRadius: 5,
+        height: 40,
         marginTop: 10,
     },
     buttonText: {
         color: 'white',
-        fontSize: 18,
+        fontSize: 16,
     },
     textCenter: {
         textAlign: 'center'
