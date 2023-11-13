@@ -30,7 +30,6 @@ const CompanyRegister = () => {
     });
 
     const handleFormSubmit = async () => {
-        console.log('isFormValid', isFormValid);
         if (!isFormValid) { return }
 
         try {

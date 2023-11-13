@@ -97,8 +97,6 @@ const CandidateRegister = () => {
 
             const user = await response.json();
             
-            console.log('user', user);
-
             if (response.status === 200) {
                 setIsVisible(true)
             }

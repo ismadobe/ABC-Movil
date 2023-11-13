@@ -112,7 +112,7 @@ const ProjectPage = () => {
             <Text style={styles.headingAlternative}>{user.name}</Text>
 
             <View>
-                <Text style={{fontSize: 16, color: '#000', fontWeight: "600"}}>Habilidades blandas</Text>
+                <Text style={{fontSize: 16, color: '#000', fontWeight: "600"}}>{i18n.t('softSkills')}</Text>
 
                 <FlatList
                     style={{marginTop: 20}}
@@ -125,7 +125,7 @@ const ProjectPage = () => {
             </View>
 
             <View style={{marginTop: 20}}>
-                <Text style={{fontSize: 16, color: '#000', fontWeight: "600"}}>Habilidades duras</Text>
+                <Text style={{fontSize: 16, color: '#000', fontWeight: "600"}}>{i18n.t('hardSkills')}</Text>
                 <View style={{marginTop: 20}}>
                     {
                         user.skills.map((skill, index) => {
@@ -153,7 +153,7 @@ const ProjectPage = () => {
                 }}>
                 <View style={stylesModal.centeredView}>
                     <View style={stylesModal.modalView}>
-                        <Text style={stylesModal.modalText}>Selecciona el proyecto</Text>
+                        <Text style={stylesModal.modalText}>{i18n.t('selectProject')}</Text>
 
 
                         <View style={styles.picker}>
@@ -175,7 +175,7 @@ const ProjectPage = () => {
                         <Pressable
                             style={[styles.button, stylesModal.buttonClose]}
                             onPress={() => selectCandidateToProject()}>
-                            <Text style={stylesModal.textStyle}>Seleccionar</Text>
+                            <Text style={stylesModal.textStyle}>{i18n.t('select')}</Text>
                         </Pressable>
                     </View>
                 </View>

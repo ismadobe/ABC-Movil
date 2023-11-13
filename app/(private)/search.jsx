@@ -77,7 +77,6 @@ const SearchPage = () => {
             });
 
             const data = await response.json();
-            console.log('users', data.users);
 
             if (response.status === 200) {
                 setIsVisible(true)
@@ -93,8 +92,8 @@ const SearchPage = () => {
             <View style={{
                 marginBottom: 20,
             }}>
-                <Text style={[styles.headingAlternative, {marginBottom: 0}]}>Búsqueda de candidatos</Text>
-                <Text style={{ color: '#6B7280', fontSize: 12}}>Puedes filtrars por los criterios de cada columna</Text>
+                <Text style={[styles.headingAlternative, {marginBottom: 0}]}>{i18n.t('searchCandidateTitle')}</Text>
+                <Text style={{ color: '#6B7280', fontSize: 12}}>{i18n.t('searchCandidateSubtitle')}</Text>
             </View>
 
             <View contentContainerStyle={{width: '100%'}}>
@@ -145,7 +144,7 @@ const SearchPage = () => {
                         isVisible && users.length > 0
                             ?
                                 <View style={{marginTop: 20}}>
-                                    <Text style={[styles.headingAlternative, {marginBottom: 0}]}>Resultados</Text>
+                                    <Text style={[styles.headingAlternative, {marginBottom: 0}]}>{i18n.t('results')}</Text>
 
                                     <FlatList
                                         style={{marginTop: 20}}
@@ -167,14 +166,14 @@ const SearchPage = () => {
                                             >
                                                 <Text style={{fontSize: 12}}>{item.name}</Text>
                                                 <Pressable style={[searchStyles.projectButton, searchStyles.viewProject]}>
-                                                    <Text style={{fontSize: 10, color: '#FFF'}}>Ver detalle</Text>
+                                                    <Text style={{fontSize: 10, color: '#FFF'}}>{i18n.t('seeDetails')}</Text>
                                                 </Pressable>
                                             </TouchableOpacity>
                                         )}
                                     />
                                 </View>
                         :
-                            <Text style={{marginTop: 20}}>No se encontraron candidatos con el filtro especificado</Text>
+                            <Text style={{marginTop: 20}}>{i18n.t('noResults')}</Text>
                     :
                         null
                 }

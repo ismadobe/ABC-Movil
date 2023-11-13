@@ -1,7 +1,6 @@
 import {Tabs} from 'expo-router';
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import {useEffect} from "react";
-import Store from "../../shared/Store";
+import i18n from "../../translations/i18n";
 
 export default function HomeLayout() {
     return (
@@ -10,7 +9,7 @@ export default function HomeLayout() {
                 name="home"
                 options={{
                     headerShown: false,
-                    tabBarLabel: 'Proyectos',
+                    tabBarLabel: `${i18n.t('projects')}`,
                     tabBarIcon: ({color, size}) => <FontAwesome5 name="list" size={20} color={color}/>
                 }}
             />
@@ -18,7 +17,7 @@ export default function HomeLayout() {
                 name="search"
                 options={{
                     headerShown: false,
-                    tabBarLabel: 'Search',
+                    tabBarLabel: `${i18n.t('search')}`,
                     tabBarIcon: ({color, size}) => <FontAwesome5 name="search" size={20} color={color}/>
                 }}
             />
@@ -26,7 +25,7 @@ export default function HomeLayout() {
                 name="profile"
                 options={{
                     headerShown: false,
-                    tabBarLabel: 'Profile',
+                    tabBarLabel: `${i18n.t('settings')}`,
                     tabBarIcon: ({color, size}) => <FontAwesome5 name="user" size={20} color={color}/>
                 }}
             />
