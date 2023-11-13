@@ -20,10 +20,12 @@
   "size": "Company Size",
   "location": "Location",
   "sector": "Sector",
-  "send": "Enviar",
+  "send": "Log in",
   "selected": "selected",
   "confirm": "Confirm",
   "phone": "Phone",
   "selectOption": "Select an option",
   "registrationSuccess": "Registration Successful",
+  "projects": "Projects",
+  "seeDetails": "See details"
 }

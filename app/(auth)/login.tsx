@@ -1,8 +1,8 @@
-import {ScrollView, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {ScrollView,  Text, TextInput, TouchableOpacity, View} from 'react-native';
 import i18n from "../../translations/i18n";
 import styles from "../styles";
 import {Link, router} from "expo-router";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useValidation} from "react-simple-form-validator";
 import {DEV_URL} from "../../constants";
 import Store from "../../shared/Store";
@@ -10,7 +10,19 @@ import Store from "../../shared/Store";
 export default function Login() {
     const [email, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [activeTab, setActiveTab] = useState('company');
+    const [url, setUrl] = useState('/companies/auth');
+    const [isLoading, setIsLoading] = useState(true);
 
+
+    useEffect(() => {
+        Store.getToken('user')
+            .then((user) => JSON.parse(user))
+            .then((user) => {
+                setIsLoading(false)
+                if (user) router.replace('/home');
+            })
+    }, []);
 
     const { isFieldInError, getErrorsInField, isFormValid } = useValidation({
         fieldsRules: {
@@ -19,6 +31,15 @@ export default function Login() {
         },
         state: { email,  password }
     });
+    const handleTabPress = (tabName: string) => {
+        setActiveTab(tabName);
+
+        if(tabName === 'company') {
+            setUrl('/companies/auth')
+        } else {
+            setUrl('/users/auth')
+        }
+    };
 
     const handleFormSubmit = async () => {
         if (!isFormValid) { return }
@@ -29,7 +50,7 @@ export default function Login() {
         }
 
         try {
-            const response = await fetch(DEV_URL + '/companies/auth', {
+            const response = await fetch(DEV_URL + url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -38,7 +59,6 @@ export default function Login() {
             });
 
             const user = await response.json();
-            console.log(user, data)
 
             if (response.status === 200) {
                 await Store.saveToken('user', JSON.stringify(user))
@@ -49,14 +69,32 @@ export default function Login() {
         }
     };
 
+    if (isLoading) return null;
+
     return (
         <View style={[styles.container]}>
-            <ScrollView contentContainerStyle={{width: '100%'}}>
+            <ScrollView contentContainerStyle={{width: '100%', paddingLeft: 40, paddingRight: 40}}>
                 <View style={{marginBottom: 48,  paddingTop: 80}}>
                     <Text style={[styles.heading, styles.textCenter]}>{i18n.t('loginAccount')}</Text>
                 </View>
 
-                <View style={{paddingLeft: 40, paddingRight: 40}}>
+                <View style={styles.tabsContainer}>
+                    <TouchableOpacity
+                        style={[styles.tab, activeTab === 'company' && styles.activeTab]}
+                        onPress={() => handleTabPress('company')}
+                    >
+                        <Text style={styles.tabText}>{i18n.t('company')}</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.tab, activeTab === 'candidate' && styles.activeTab]}
+                        onPress={() => handleTabPress('candidate')}
+                    >
+                        <Text style={styles.tabText}>{i18n.t('candidate')}</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{marginTop: 20}}>
                     <View style={styles.formGroup}>
                         <Text style={styles.label}>{i18n.t('email')}:</Text>
                         <TextInput
@@ -76,7 +114,7 @@ export default function Login() {
                         />
                     </View>
 
-                    <TouchableOpacity style={styles.button} onPress={handleFormSubmit} disabled={!isFormValid}>
+                    <TouchableOpacity style={styles.button} onPress={handleFormSubmit} >
                         <Text style={styles.buttonText}>{i18n.t('send')}</Text>
                     </TouchableOpacity>
 

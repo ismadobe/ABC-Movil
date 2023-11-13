@@ -64,9 +64,18 @@ const ProjectPage = () => {
         getProjects();
     }, []);
 
+    const getData = useCallback(async () => {
+        if (!id) return;
+        const user = await Store.getToken('candidate');
+        setUser(JSON.parse(user));
+    }, [id]);
+
     const getProjects = useCallback(async () => {
+        let company = await Store.getToken('user');
+        company = JSON.parse(company);
+
         try {
-            const response = await fetch(`https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/projects/companies/48`, {
+            const response = await fetch(`https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/projects/companies/${company.id}`, {
                 method: 'GET'
             });
 
@@ -80,11 +89,21 @@ const ProjectPage = () => {
         }
     }, [])
 
-    const getData = useCallback(async () => {
-        if (!id) return;
-        const user = await Store.getToken('user');
-        setUser(JSON.parse(user));
-    }, [id]);
+    const selectCandidateToProject = async () => {
+        if (!project) return;
+
+        try {
+            const response = await fetch(`https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/projects/${project}/selectcandidates/${id}`, {
+                method: 'POST'
+            });
+
+            if (response.status === 200) {
+                setIsModalVisible(false);
+            }
+        } catch (error) {
+            console.error('Error sending POST request:', error);
+        }
+    }
 
     if (!user) return;
 
@@ -155,7 +174,7 @@ const ProjectPage = () => {
 
                         <Pressable
                             style={[styles.button, stylesModal.buttonClose]}
-                            onPress={() => setIsModalVisible(!isModalVisible)}>
+                            onPress={() => selectCandidateToProject()}>
                             <Text style={stylesModal.textStyle}>Seleccionar</Text>
                         </Pressable>
                     </View>

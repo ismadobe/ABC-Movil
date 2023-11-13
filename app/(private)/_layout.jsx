@@ -1,5 +1,7 @@
 import {Tabs} from 'expo-router';
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import {useEffect} from "react";
+import Store from "../../shared/Store";
 
 export default function HomeLayout() {
     return (

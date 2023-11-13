@@ -39,22 +39,23 @@ const HomePage = () => {
     const navigation = useNavigation();
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        fetchData().then(data => {
+            setData(data.projects)
+            setLoading(false);
+        });
+    });
 
-    const fetchData = useCallback(async () => {
+    const fetchData = async () => {
         try {
             let user = await Store.getToken('user');
             user = JSON.parse(user);
-            const response = await fetch(`${DEV_URL}/projects/companies/48`);
-            const result = await response.json();
-            setData(result.projects);
-            setLoading(false);
+            const response = await fetch(`${DEV_URL}/projects/companies/${user.id}`);
+            return  await response.json();
         } catch (error) {
             console.error('Error fetching data:', error);
             setLoading(false);
         }
-    }, []);
+    };
 
     if (loading) {
         return (
@@ -69,7 +70,7 @@ const HomePage = () => {
             <View style={{
                 flexDirection: 'row',
             }}>
-                <Text style={[styles.headingAlternative, {marginBottom: 0}]}>Proyectos</Text>
+                <Text style={[styles.headingAlternative, {marginBottom: 0}]}>{i18n.t('projects')}</Text>
                 {/*</Pressable>*/}
             </View>
             <FlatList
@@ -91,7 +92,7 @@ const HomePage = () => {
                     >
                         <Text style={{ fontSize: 12 }}>{item.title}</Text>
                         <Pressable style={[projectStyles.projectButton, projectStyles.viewProject]}>
-                            <Text style={{ fontSize: 10, color: '#FFF' }}>Ver detalle</Text>
+                            <Text style={{ fontSize: 10, color: '#FFF' }}>{i18n.t('seeDetails')}</Text>
                         </Pressable>
                     </TouchableOpacity>
                 )}
