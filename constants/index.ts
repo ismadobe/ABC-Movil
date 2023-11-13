@@ -1,0 +1,1 @@
+export const DEV_URL = 'https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev'
