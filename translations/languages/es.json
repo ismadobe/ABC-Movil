@@ -37,4 +37,6 @@
   "searchCandidateSubtitle": "Puedes filtrar por los criterios de cada columna",
   "results": "Resultados",
   "noResults": "No se encontraron candidatos con el filtro especificado",
+  "description": "Descripción",
+  "selectedCandidates": "Candidatos seleccionados"
 }

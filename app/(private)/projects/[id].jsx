@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import Store from "../../../shared/Store";
 import {DEV_URL} from "../../../constants";
 import {useRouter} from "expo-router";
+import i18n from "../../../translations/i18n";
 
 const ProjectPage = () => {
     const route = useRoute();
@@ -57,14 +58,14 @@ const ProjectPage = () => {
                 <Text style={styles.headingAlternative}>{project.title}</Text>
             </View>
 
-            <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 5}]}>Descripción</Text>
+            <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 5}]}>{i18n.t('description')}</Text>
             <Text style={{fontSize: 12, color: '#6B7280'}}>{project.description}</Text>
 
             <ScrollView style={{marginBottom: 20}}>
                 {
                     candidates.length > 0 &&
                     <View style={{marginTop: 15}}>
-                        <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 5}]}>Candidatos seleccionados</Text>
+                        <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 5}]}>{i18n.t('selectedCandidates')}</Text>
                         {candidates.map((candidate, index) => (
                             <TouchableOpacity key={index} style={{marginTop: 10, flex: 1, flexDirection: 'row', alignItems: 'center',justifyContent: 'space-between'}} onPress={async () => {
                                 await Store.saveToken('candidate', JSON.stringify(candidate));
@@ -75,7 +76,7 @@ const ProjectPage = () => {
                                     <Text style={{fontSize: 10, marginBottom: 5}}>{candidate.country} - {candidate.email}</Text>
                                 </View>
                                 <Pressable style={[styles.projectButton, styles.viewProject]}>
-                                    <Text style={{fontSize: 10, color: '#FFF'}}>Ver detalle</Text>
+                                    <Text style={{fontSize: 10, color: '#FFF'}}>{i18n.t('seeDetails')}</Text>
                                 </Pressable>
                             </TouchableOpacity>
                         ))}
