@@ -153,6 +153,7 @@ const SearchPage = () => {
                                         renderItem={({item}) => (
                                             <TouchableOpacity
                                                 onPress={async () => {
+                                                    await Store.removeToken('projectId')
                                                     await Store.saveToken('candidate', JSON.stringify(item))
                                                     router.replace(`/users/${item.id}`)
                                                 }

@@ -57,12 +57,16 @@ const ProjectPage = () => {
     const [user, setUser] = useState(null);
     const [projects, setProjects] = useState([]);
     const [project, setProject] = useState([]);
+    const [projectId, setProjectId] = useState(null);
+    const [interviews, setInterviews] = useState([]);
+    const [technicalTests, setTechnicalTests] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(null);
 
     useEffect(() => {
+        getParentProject();
         getData();
         getProjects();
-    }, []);
+    }, [id]);
 
     const getData = useCallback(async () => {
         if (!id) return;
@@ -82,12 +86,49 @@ const ProjectPage = () => {
             const data = await response.json();
 
             if (response.status === 200) {
-                setProjects(data.projects)
+                setProjects(data ? data.projects : [])
             }
         } catch (error) {
             console.error('Error sending POST request:', error);
         }
     }, [])
+    
+    const getTestsByProjectId = useCallback(async (projectId) => {
+        if (!projectId) return;
+        try {
+            const res = await fetch(`https://fli2mqd2g8.execute-api.us-east-1.amazonaws.com/dev/tests/projects/${projectId}`, {
+                method: 'GET'
+            });
+
+            const candidate = await Store.getToken('candidate')
+            const userId = JSON.parse(candidate).id;
+
+            const tests = await res.json()
+
+            if (tests && tests.length) {
+                const testsByUser = tests.filter(test => String(test['hard_skills'][0]) == userId);
+                const interviews = [...testsByUser].filter(test => test.type === 'interview');
+                const technicalTests = [...testsByUser].filter(test => test.type === 'technical');
+
+                setInterviews(interviews);
+                setTechnicalTests(technicalTests)
+                return;
+            }
+
+            setInterviews([]);
+        } catch (err) {
+            console.log('err', err);
+        }
+    }, [projectId])
+
+    const getParentProject = async () => {
+        const projectId = await Store.getToken('projectId');
+        setProjectId(projectId);
+        
+        if (projectId) {
+            await getTestsByProjectId(projectId);
+        }
+    };
 
     const selectCandidateToProject = async () => {
         if (!project) return;
@@ -115,7 +156,7 @@ const ProjectPage = () => {
                 <Text style={{fontSize: 16, color: '#000', fontWeight: "600"}}>{i18n.t('softSkills')}</Text>
 
                 <FlatList
-                    style={{marginTop: 20}}
+                    style={{marginTop: 15}}
                     data={user.personality}
                     keyExtractor={(item) => item}
                     renderItem={({item}) => (
@@ -126,9 +167,9 @@ const ProjectPage = () => {
 
             <View style={{marginTop: 20}}>
                 <Text style={{fontSize: 16, color: '#000', fontWeight: "600"}}>{i18n.t('hardSkills')}</Text>
-                <View style={{marginTop: 20}}>
+                <View style={{marginTop: 15}}>
                     {
-                        user.skills.map((skill, index) => {
+                        user && user?.skills?.map((skill, index) => {
                             return (
                                 <Text key={index} style={{fontSize: 12, color: '#6B7280'}}>{skill}</Text>
                             )
@@ -137,13 +178,42 @@ const ProjectPage = () => {
                 </View>
             </View>
 
+            {
+                !projectId &&
+                <View style={{marginTop: 20}}>
+                    <TouchableOpacity style={styles.button} onPress={() => setIsModalVisible(true)}>
+                        <Text style={styles.buttonText}>{i18n.t('selectCandidate')}</Text>
+                    </TouchableOpacity>
+                </View>
+            }
 
-            <View style={{marginTop: 20}}>
-                <TouchableOpacity style={styles.button} onPress={() => setIsModalVisible(true)}>
-                    <Text style={styles.buttonText}>{i18n.t('selectCandidate')}</Text>
-                </TouchableOpacity>
-            </View>
 
+            {
+                interviews && interviews.length > 0 &&
+                <View style={{marginTop: 15}}>
+                    <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 15}]}>Entrevistas</Text>
+                    {interviews.map((interview, index) => (
+                        <TouchableOpacity key={index} style={{marginTop: 5, flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <Text style={{fontSize: 12, fontWeight: 700, marginBottom: 10}}>{interview.title}</Text>
+                            <Text style={{fontSize: 10, color: '#6B7280'}}>{interview.difficulty_level}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+            }
+
+
+            {
+                technicalTests && technicalTests.length > 0 &&
+                <View style={{marginTop: 15}}>
+                    <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 15}]}>Pruebas técnicas</Text>
+                    {technicalTests.map((test, index) => (
+                        <TouchableOpacity key={index} style={{marginTop: 5, flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <Text style={{fontSize: 12, fontWeight: 700, marginBottom: 10}}>{test.title}</Text>
+                            <Text style={{fontSize: 10, color: '#6B7280'}}>{test.difficulty_level}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+            }
             <Modal
                 animationType="slide"
                 transparent={true}
