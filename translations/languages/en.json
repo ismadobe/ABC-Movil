@@ -39,5 +39,7 @@
   "results": "Results",
   "noResults": "No candidates found with the specified filter",
   "description": "Description",
-  "selectedCandidates": "Selected candidates"
+  "selectedCandidates": "Selected candidates",
+  "assignedCandidates": "Assigned candidates",
+  "assignCandidate": "Assign candidate"
 }

@@ -15,11 +15,13 @@ const ProjectPage = () => {
     const [project, setProject] = useState(null);
     const [tests, setTests] = useState([]);
     const [candidates, setCandidates] = useState([]);
+    const [assignedCandidates, setAssignedCandidates] = useState([]);
 
     useEffect(() => {
         getProject().then(project => setProject(project));
         fetchTest().then(tests => setTests(tests));
         fetchSelectedCandidates().then(candidates => setCandidates(candidates));
+        fetchAssignedCandidates().then(candidates => setAssignedCandidates(candidates));
     }, [id]);
 
     const getProject = async () => {
@@ -48,6 +50,27 @@ const ProjectPage = () => {
         }
     };
 
+    const fetchAssignedCandidates = async () => {
+        try {
+            const response = await fetch(`${DEV_URL}/projects/${id}/assignedcandidates`);
+            const candidates = await response.json();
+            return candidates?.users ?? []
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    const assignCandidate = async (candidateId) => {
+        try {
+            await fetch(`${DEV_URL}/projects/${id}/assigncandidates/${candidateId}`, {
+                method: 'POST'
+            });
+            const assignedCandidates = await fetchAssignedCandidates();
+            setAssignedCandidates(assignedCandidates);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
     if (!project) return;
 
@@ -62,13 +85,15 @@ const ProjectPage = () => {
             <Text style={{fontSize: 12, color: '#6B7280'}}>{project.description}</Text>
 
             <ScrollView style={{marginBottom: 20}}>
+
                 {
-                    candidates.length > 0 &&
+                    assignedCandidates && assignedCandidates.length > 0 &&
                     <View style={{marginTop: 15}}>
-                        <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 5}]}>{i18n.t('selectedCandidates')}</Text>
-                        {candidates.map((candidate, index) => (
+                        <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 5}]}>{i18n.t('assignedCandidates')}</Text>
+                        {assignedCandidates.map((candidate, index) => (
                             <TouchableOpacity key={index} style={{marginTop: 10, flex: 1, flexDirection: 'row', alignItems: 'center',justifyContent: 'space-between'}} onPress={async () => {
                                 await Store.saveToken('candidate', JSON.stringify(candidate));
+                                await Store.saveToken('projectId', id);
                                 router.replace(`/users/${candidate.id}`)
                             }}>
                                 <View>
@@ -84,7 +109,37 @@ const ProjectPage = () => {
                 }
 
                 {
-                    tests.length > 0 &&
+                    candidates && candidates.length > 0 &&
+                    <View style={{marginTop: 15}}>
+                        <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 5}]}>{i18n.t('selectedCandidates')}</Text>
+                        {candidates.map((candidate, index) => (
+                            <TouchableOpacity key={index} style={{marginTop: 10, flex: 1, flexDirection: 'row', alignItems: 'center',justifyContent: 'space-between'}}>
+                                <View>
+                                    <Text style={{fontSize: 12, fontWeight: 700, marginBottom: 0}}>{candidate.name}</Text>
+                                    <Text style={{fontSize: 10, marginBottom: 5}}>{candidate.country} - {candidate.email}</Text>
+                                </View>
+
+                                <View>
+                                    <Pressable style={[styles.projectButton, styles.viewProject]} onPress={async () => {
+                                        await Store.saveToken('projectId', id);
+                                        await Store.saveToken('candidate', JSON.stringify(candidate));
+                                        router.replace(`/users/${candidate.id}`)
+                                    }}>
+                                        <Text style={{fontSize: 10, color: '#FFF'}}>{i18n.t('seeDetails')}</Text>
+                                    </Pressable>
+
+                                    <Pressable style={[styles.projectButton, styles.viewProject, { marginTop: 10} ]} onPress={async () => assignCandidate(candidate.id)}>
+                                        <Text style={{fontSize: 10, color: '#FFF'}}>{i18n.t('assignCandidate')}</Text>
+                                    </Pressable>
+                                </View>
+
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                }
+
+                {
+                    tests && tests.length > 0 &&
                     <View style={{marginTop: 15}}>
                         <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 5}]}>Pruebas</Text>
                         {tests.map((test, index) => (
