@@ -59,6 +59,7 @@ export default function Login() {
             });
 
             const user = await response.json();
+            user.type = activeTab === 'company' ? 'companies' : 'users';
 
             if (response.status === 200) {
                 await Store.saveToken('user', JSON.stringify(user))

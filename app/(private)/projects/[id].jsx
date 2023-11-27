@@ -16,12 +16,21 @@ const ProjectPage = () => {
     const [tests, setTests] = useState([]);
     const [candidates, setCandidates] = useState([]);
     const [assignedCandidates, setAssignedCandidates] = useState([]);
+    const [showCandidates, setShowCandidate] = useState(false);
 
     useEffect(() => {
-        getProject().then(project => setProject(project));
-        fetchTest().then(tests => setTests(tests));
-        fetchSelectedCandidates().then(candidates => setCandidates(candidates));
-        fetchAssignedCandidates().then(candidates => setAssignedCandidates(candidates));
+        async function getUser() {
+            const user = await Store.getToken('user');
+            return JSON.parse(user);
+        }
+        
+        getUser().then(user => {
+            setShowCandidate(user.type === 'companies');
+            getProject().then(project => setProject(project));
+            fetchTest().then(tests => setTests(tests));
+            fetchSelectedCandidates().then(candidates => setCandidates(candidates));
+            fetchAssignedCandidates().then(candidates => setAssignedCandidates(candidates));
+        })
     }, [id]);
 
     const getProject = async () => {
@@ -87,7 +96,7 @@ const ProjectPage = () => {
             <ScrollView style={{marginBottom: 20}}>
 
                 {
-                    assignedCandidates && assignedCandidates.length > 0 &&
+                    showCandidates && assignedCandidates && assignedCandidates.length > 0 &&
                     <View style={{marginTop: 15}}>
                         <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 5}]}>{i18n.t('assignedCandidates')}</Text>
                         {assignedCandidates.map((candidate, index) => (
@@ -109,7 +118,7 @@ const ProjectPage = () => {
                 }
 
                 {
-                    candidates && candidates.length > 0 &&
+                    showCandidates && candidates && candidates.length > 0 &&
                     <View style={{marginTop: 15}}>
                         <Text style={[styles.subheading, {fontSize: 16, fontWeight: 700, marginBottom: 5}]}>{i18n.t('selectedCandidates')}</Text>
                         {candidates.map((candidate, index) => (

@@ -104,14 +104,21 @@ const ProjectPage = () => {
             const userId = JSON.parse(candidate).id;
 
             const tests = await res.json()
+            
+
 
             if (tests && tests.length) {
-                const testsByUser = tests.filter(test => String(test['hard_skills'][0]) == userId);
-                const interviews = [...testsByUser].filter(test => test.type === 'interview');
-                const technicalTests = [...testsByUser].filter(test => test.type === 'technical');
-
+                const testsByUser = [...tests].filter(test => String(test['hard_skills'][0]) === String(userId));
+                const interviews = [...tests].filter(test => test.type === 'interview');
+                const technicalTests = [...tests].filter(test => test.type === 'technical')
+                const techTests = technicalTests?.map(test => {
+                    return {
+                        ...test,
+                        submission: test.submissions.filter(submission => submission.user_id == userId)[0]
+                    }
+                });
                 setInterviews(interviews);
-                setTechnicalTests(technicalTests)
+                setTechnicalTests(techTests)
                 return;
             }
 
@@ -201,7 +208,6 @@ const ProjectPage = () => {
                 </View>
             }
 
-
             {
                 technicalTests && technicalTests.length > 0 &&
                 <View style={{marginTop: 15}}>
@@ -209,11 +215,14 @@ const ProjectPage = () => {
                     {technicalTests.map((test, index) => (
                         <TouchableOpacity key={index} style={{marginTop: 5, flexDirection: 'row', justifyContent: 'space-between'}}>
                             <Text style={{fontSize: 12, fontWeight: 700, marginBottom: 10}}>{test.title}</Text>
-                            <Text style={{fontSize: 10, color: '#6B7280'}}>{test.difficulty_level}</Text>
+                            <View style={{ flexDirection: 'row', gap: 5}}>
+                                <Text style={{fontSize: 10, color: '#000', fontWeight: 'bold'}}>{test?.submission?.score ?? 'Sin presentar'}</Text>
+                            </View>
                         </TouchableOpacity>
                     ))}
                 </View>
             }
+
             <Modal
                 animationType="slide"
                 transparent={true}
