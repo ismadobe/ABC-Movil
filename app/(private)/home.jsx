@@ -40,16 +40,17 @@ const HomePage = () => {
 
     useEffect(() => {
         fetchData().then(data => {
+            console.log('data', data);
             setData(data.projects)
             setLoading(false);
         });
-    });
+    },  []);
 
     const fetchData = async () => {
         try {
             let user = await Store.getToken('user');
             user = JSON.parse(user);
-            const response = await fetch(`${DEV_URL}/projects/companies/${user.id}`);
+            const response = await fetch(`${DEV_URL}/projects/${user.type}/${user.id}`);
             return  await response.json();
         } catch (error) {
             console.error('Error fetching data:', error);

@@ -41,5 +41,8 @@
   "description": "Description",
   "selectedCandidates": "Selected candidates",
   "assignedCandidates": "Assigned candidates",
-  "assignCandidate": "Assign candidate"
+  "assignCandidate": "Assign candidate",
+  "signOut": "Sign Out"
 }
+
+//projects/users/userId

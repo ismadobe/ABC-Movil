@@ -40,5 +40,6 @@
   "description": "Descripción",
   "selectedCandidates": "Candidatos seleccionados",
   "assignedCandidates": "Candidatos asignados",
-  "assignCandidate": "Assign candidate"
+  "assignCandidate": "Assign candidate",
+  "signOut": "Cerrar sesión"
 }

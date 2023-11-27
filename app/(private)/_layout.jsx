@@ -1,8 +1,21 @@
 import {Tabs} from 'expo-router';
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import i18n from "../../translations/i18n";
+import {useEffect, useState} from "react";
+import Store from "../../shared/Store";
 
 export default function HomeLayout() {
+    const [searchBarUrl, setSearchBarUrl] = useState(null);
+
+    useEffect(() => {
+        async function getUser() {
+            const user = await Store.getToken('user');
+            const searchBarUrl = JSON.parse(user).type === 'users' ? null : '/search';
+            setSearchBarUrl(searchBarUrl);
+        }
+        getUser();
+    }, []);
+
     return (
         <Tabs>
             <Tabs.Screen
@@ -18,6 +31,7 @@ export default function HomeLayout() {
                 options={{
                     headerShown: false,
                     tabBarLabel: `${i18n.t('search')}`,
+                    href: searchBarUrl,
                     tabBarIcon: ({color, size}) => <FontAwesome5 name="search" size={20} color={color}/>
                 }}
             />
